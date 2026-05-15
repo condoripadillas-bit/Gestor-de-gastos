@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Gestor de Gastos Premium</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 Gestor de Gastos Premium</h1>
+            <p>Ingresos, gastos, categorías, gráficos y exportación de datos</p>
+        </header>
+
+        <!-- Panel de resumen -->
+        <section class="resumen">
+            <div class="card saldo">
+                <h3>Saldo actual</h3>
+                <p id="balance">$0.00</p>
+            </div>
+            <div class="card ingresos">
+                <h3>Ingresos</h3>
+                <p id="total-ingresos">$0.00</p>
+            </div>
+            <div class="card gastos">
+                <h3>Gastos</h3>
+                <p id="total-gastos">$0.00</p>
+            </div>
+        </section>
+
+        <!-- Formulario para agregar transacción -->
+        <section class="formulario">
+            <h2>➕ Nueva transacción</h2>
+            <form id="transaction-form">
+                <div class="form-group">
+                    <label for="concepto">Concepto</label>
+                    <input type="text" id="concepto" placeholder="Ej. Sueldo, Supermercado, Netflix" required>
+                </div>
+                <div class="form-group">
+                    <label for="monto">Monto ($)</label>
+                    <input type="number" id="monto" placeholder="0.00" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="tipo" value="ingreso" checked> Ingreso</label>
+                        <label><input type="radio" name="tipo" value="gasto"> Gasto</label>
+                    </div>
+                </div>
+                <div class="form-group" id="categoria-group">
+                    <label for="categoria">Categoría (solo gastos)</label>
+                    <select id="categoria" disabled>
+                        <option value="comida">🍔 Comida</option>
+                        <option value="transporte">🚗 Transporte</option>
+                        <option value="ocio">🎬 Ocio</option>
+                        <option value="salud">🏥 Salud</option>
+                        <option value="educacion">📚 Educación</option>
+                        <option value="otros">📦 Otros</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-agregar">+ Agregar</button>
+            </form>
+        </section>
+
+        <!-- Filtros y herramientas -->
+        <section class="herramientas">
+            <div class="filtro-categoria">
+                <label for="filtro-cat">🔍 Filtrar por categoría:</label>
+                <select id="filtro-cat">
+                    <option value="todas">📋 Todas las categorías</option>
+                    <option value="comida">🍔 Comida</option>
+                    <option value="transporte">🚗 Transporte</option>
+                    <option value="ocio">🎬 Ocio</option>
+                    <option value="salud">🏥 Salud</option>
+                    <option value="educacion">📚 Educación</option>
+                    <option value="otros">📦 Otros</option>
+                    <option value="ingreso">💵 Solo ingresos</option>
+                </select>
+            </div>
+            <button id="exportar-csv" class="btn-secundario">📎 Exportar a CSV</button>
+        </section>
+
+        <!-- Gráfico de distribución de gastos -->
+        <section class="grafico-section">
+            <h2>📊 Distribución de gastos por categoría</h2>
+            <canvas id="grafico-gastos" width="400" height="200" style="max-width:100%; height:auto;"></canvas>
+        </section>
+
+        <!-- Listado de transacciones -->
+        <section class="historial">
+            <h2>📜 Historial de movimientos</h2>
+            <div id="transaction-list" class="transaction-list">
+                <p class="empty-message">No hay movimientos. Agrega uno arriba.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Toast para notificaciones -->
+    <div id="toast" class="toast">✅ Acción completada</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
